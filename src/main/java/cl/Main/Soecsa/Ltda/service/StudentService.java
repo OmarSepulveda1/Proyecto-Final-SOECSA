@@ -1,6 +1,7 @@
 package cl.Main.Soecsa.Ltda.service;
 
 import cl.Main.Soecsa.Ltda.entity.Student;
+import cl.Main.Soecsa.Ltda.entity.UserRol;
 import cl.Main.Soecsa.Ltda.repository.IStudentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class StudentService {
     }
 
     public Student saveStudent(Student student) {
+    	student.setUserRol(UserRol.Student);
         return studentsRepository.save(student);
     }
 

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/estudiantes")
 public class StudentController {
 
     private final StudentService studentService;
@@ -45,10 +45,11 @@ public class StudentController {
         return "students/formulario-crear"; // Nombre del archivo JSP para el formulario de creación
     }
 
-    @PostMapping("/guardar")
-    public String guardarStudent(Student student) {
+    @PostMapping("/guardar-estudiantes")
+    public ModelAndView guardarStudent(Student student) {
         studentService.saveStudent(student);
-        return "redirect:/students/lista"; // Redireccionar a la lista después de guardar
+        return new ModelAndView("exito")
+                .addObject("mensaje", "El Usuario se ha creado correctamente.");
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/borrar/{id}")

@@ -19,8 +19,8 @@ public class Admin extends User{
 		super();
 	}
 
-	public Admin(Long id, String userName, String password, UserRol userRol) {
-		super(id, userName, password, userRol);
+	public Admin(Long id, String userName, String password, UserRol userRol, String email) {
+		super(id, userName, password, userRol, email);
 		// TODO Auto-generated constructor stub
 	}
 

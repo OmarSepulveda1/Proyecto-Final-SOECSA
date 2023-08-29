@@ -24,6 +24,9 @@ public class User {
 	private String userName;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "email")
+    private String email;
+	@Column(name = "user_rol")
 	@Enumerated(EnumType.STRING)
 	private UserRol userRol;
 	
@@ -48,12 +51,28 @@ public class User {
 		this.userRol = userRol;
 	}
 
-	public User(Long id, String userName, String password, UserRol userRol) {
+	public User(Long id, String userName, String password, UserRol userRol, String email) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.userRol = userRol;
+		this.email = email;
+		
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**

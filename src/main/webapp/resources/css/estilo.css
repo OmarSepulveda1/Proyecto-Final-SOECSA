@@ -1,14 +1,53 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
+@charset "ISO-8859-1";
 
 body {
-    padding: 1rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.alerta {
+    display: none;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+.contenedor {
+  flex: 1;
 }
 
-h1 {
-    color: blue;
-    margin-bottom: 0.25rem;
+.footer {
+  flex-shrink: 0;
+  height: 60px;
+  background-color: rgb(232, 227, 227);
+  position: relative; /* Establecemos el posicionamiento relativo */
+  bottom: 0; /* Lo coloca inicialmente al final del contenedor */
+  width: 100%;
+  margin-top: auto; /* Empuja el footer hacia abajo, pero no m�s all� del final del contenido */
+}
+
+.label{
+	padding-bottom: 8px;
+}
+
+/* Estilos para el navbar */
+.navbar {
+  position: fixed; /* Fijamos la posición del navbar */
+  top: 0; /* Lo posicionamos en la parte superior */
+  left: 0; /* Lo posicionamos en la parte izquierda */
+  width: 100%; /* Opcional: Ancho completo del navbar */
+  z-index: 1000; /* Asegura que el navbar esté por encima de otros elementos */
+}
+
+/* Estilos para el contenido principal */
+.content {
+  padding-top: 50px; /* Añade espacio en la parte superior para evitar que el contenido quede detrás del navbar */
+}
+.fondo {
+  background-color: rgb(0, 128, 255); 
+  color: white; 
+  padding: 10px;
 }

@@ -16,7 +16,7 @@ import cl.Main.Soecsa.Ltda.entity.Post;
 import cl.Main.Soecsa.Ltda.service.PostService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/Publicar")
 public class PostController {
 	
 	private final PostService postService;
@@ -51,7 +51,7 @@ public class PostController {
         return "redirect:/post"; // Redireccionar a la lista después de guardar
     }
 	
-	@RequestMapping(value = "/eliminarPost")
+	@RequestMapping(value = "/eliminarPublicación")
     public ModelAndView mostrarFormularioNoticias(ModelMap model,
             @RequestParam("idRescatado") Long id) {
 		postService.borrarUsuario(id);

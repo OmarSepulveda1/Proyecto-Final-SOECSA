@@ -1,75 +1,126 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100 translated-ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Estudiantes</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <style>
-    body {
-      background-color: #F0F1F2;
-    }
-    .actions {
-      white-space: nowrap;
-    }
-  </style>
+<meta charset="ISO-8859-1">
+<title>Lista de Estudiantes</title>
+<!-- CSS del proyecto -->
+<%@ include file='css-proyect.jsp'%>
 </head>
 <body>
-  <section class="section">
-    <div class="container">
-      <h1 class="title has-text-centered">Lista de Estudiantes</h1>
-      <div class="columns is-centered">
-        <div class="column is-centered">
-          <div class="rectangle">
-            <table class="table is-fullwidth">
-              <thead>
-                <tr>
-                  <th>Nombres</th>
-                  <th>Apellidos</th>
-                  <th>Email</th>
-                  <th>Rut</th>
-                  <th>Edad</th>
-                  <th>Ãšltimo AÃ±o Aprobado</th>
-                  <th>TelÃ©fono</th>
-                  <th class="actions">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Nombre1</td>
-                  <td>Apellido1</td>
-                  <td>email1@example.com</td>
-                  <td>12345678-9</td>
-                  <td>20</td>
-                  <td>2022</td>
-                  <td>123456789</td>
-                  <td class="actions">
-                    <button class="button is-primary">Editar</button>
-                    <button class="button is-danger">Eliminar</button>
-                  </td>
-                </tr>
-                <!-- Repite la estructura para otros estudiantes -->
-                <tr>
-                  <td>Nombre2</td>
-                  <td>Apellido2</td>
-                  <td>email2@example.com</td>
-                  <td>98765432-1</td>
-                  <td>22</td>
-                  <td>2020</td>
-                  <td>987654321</td>
-                  <td class="actions">
-                    <button class="button is-primary">Editar</button>
-                    <button class="button is-danger">Eliminar</button>
-                  </td>
-                </tr>
-                <!-- Repite la estructura para mÃ¡s estudiantes -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+	<!-- Incluyendo navbar menu -->
+	<c:set var="navItem" value="Listar" />
+	<!-- Menu activo -->
+	<c:set var="navText" value="Estudiantes" />
+	<!-- Texto Listar -->
+	<%@ include file='navbar.jsp'%>
+
+	<h1>Listado de Estudiantes</h1>
+	<c:choose>
+		<c:when test="${empty studentList}">
+			<div class="alert alert-danger" style="text-align: center"
+				role="alert">
+				No hay registros de Estudiantes. <a href="CrearEstudiante"
+					class="alert-link">Ir a crear Usuario</a>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<!-- Agregar la variable booleana  -->
+			<c:set var="mostrarAlert" value="${mostrarAlert}" />
+			<c:set var="mensaje" value="${mensaje}" />
+
+			<!-- Utilizar la etiqueta 'c:if' para mostrar el alert solo cuando 'mostrarAlert' sea verdadero -->
+			<c:if test="${mostrarAlert}">
+				<div class="alert alert-info" style="text-align: center"
+					role="alert">${mensaje}</div>
+			</c:if>
+
+			<table class="table table-striped table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Email</th>
+						<th>RUT</th>
+						<th>Edad</th>
+						<th>Último Grado Estudiado</th>
+						<th>Número de Teléfono</th>
+						<th>Acciones</th>
+					</tr>
+					<c:forEach items="${students}" var="student">
+						<tr>
+							<td>${student.id}</td>
+							<td>${student.name}</td>
+							<td>${student.lastName}</td>
+							<td>${student.email}</td>
+							<td>${student.rut}</td>
+							<td>${student.age}</td>
+							<td>${student.lastGradeStudied}</td>
+							<td>${student.phoneNumber}</td>
+							<td>
+								<!-- Enviar el ID del Estudiante al servlet EditarEstudiante al hacer clic en el botÃ³n "Editar" -->
+								<form action="Editar${userRol.getUserRol()}" method="get">
+									<input type="hidden" name="idRescatado" value="${student.getId()}">
+									<button type="submit" class="btn btn-outline-dark btn-sm">
+										<i class="bi bi-pencil-square"></i> Editar
+									</button>
+								</form>
+							</td>
+							<!-- boton modal -->
+							<td>
+								<button type="button"
+									class="btn btn-outline-danger btn-sm eliminar-usuario-btn"
+									data-user-id="${student.getId()}" data-bs-toggle="modal"
+									data-bs-target="#eliminarModal">
+									<i class="bi bi-trash"></i> Eliminar
+								</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:otherwise>
+	</c:choose>
+	</section>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="eliminarModal" tabindex="-1"
+		aria-labelledby="eliminarModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eliminarModalLabel">Confirmar
+						Eliminación</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body">¿Estás seguro de que deseas eliminar
+					este Estudiante?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Cancelar</button>
+					<form id="eliminarUsuarioForm" action="EliminarUsuario"
+						method="get">
+						<input type="hidden" name="idRescatado" value="">
+						<button type="submit" class="btn btn-danger">Eliminar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<%@ include file='footer.jsp'%>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
+	<!-- Script propio de la vista -->
+	<script src="<c:url value="/res/js/eliminarEstudiante.js" />">
+		
+	</script>
 </body>
 </html>

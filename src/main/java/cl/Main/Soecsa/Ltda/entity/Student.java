@@ -21,8 +21,6 @@ public class Student extends User {
     private String name;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "email")
-    private String email;
     @Column(name = "rut")
     private int rut;
     @Column(name = "age")
@@ -37,26 +35,24 @@ public class Student extends User {
     }
     
 	
-	public Student(Long id, String userName, String password, UserRol userRol) {
-		super(id, userName, password, userRol);
+	public Student(Long id, String userName, String password, UserRol userRol, String email) {
+		super(id, userName, password, userRol, email);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(Long id, String userName, String name, String lastName, String email, int rut, int age, String lastGradeStudied, String phoneNumber) {
+	public Student(Long id, String userName, String name, String lastName, int rut, int age, String lastGradeStudied, String phoneNumber) {
 		super(id, userName, UserRol.Student);
 		this.name = name;
 		this.lastName = lastName;
-		this.email = email;
 		this.rut = rut;
 		this.lastGradeStudied = lastGradeStudied;
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Student(Long id, String userName, String password, String name, String lastName, String email, int rut, int age, String lastGradeStudied, String phoneNumber) {
+	public Student(Long id, String userName, String password, String name, String lastName, int rut, int age, String lastGradeStudied, String phoneNumber) {
 		super(id, userName, UserRol.Student);
 		this.name = name;
 		this.lastName = lastName;
-		this.email = email;
 		this.rut = rut;
 		this.lastGradeStudied = lastGradeStudied;
 		this.phoneNumber = phoneNumber;
@@ -104,20 +100,7 @@ public class Student extends User {
 		this.lastName = lastName;
 	}
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	/**
 	 * @return the rut
 	 */

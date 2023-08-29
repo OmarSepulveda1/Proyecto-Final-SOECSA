@@ -1,48 +1,74 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100 translated-ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro de Usuario</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta charset="ISO-8859-1">
+    <title>Registrar Usuario</title>
+    <!-- Incluyendo estilos -->
+    <%@include file="css-proyect.jsp"%>
 </head>
-<body>
-  <section class="section">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-one-third">
-          <div class="box">
-            <h1 class="title has-text-centered">Registro de Usuario</h1>
-            <form>
-              <div class="field">
-                <label class="label">Rut</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Ingrese su Rut">
+<body class="d-flex flex-column h-100">
+    <!-- Incluyendo navbar menu -->
+    <c:set var="navItem" value="Registrar" />
+    <!-- Menu activo -->
+    <c:set var="navText" value="Usuario" />
+    <!-- Texto Registrar -->
+    <%@include file="navbar.jsp"%>
+
+    <main class="flex-shrink-0 content">
+        <div class="container d-flex justify-content-center align-items-center mt-4">
+            <!-- Formulario para registrar usuario -->
+            <div class="card" style="width: 50%;">
+                <!-- Agregar la variable booleana  -->
+                <c:set var="mostrarAlert" value="${mostrarAlert}" />
+                <c:set var="mensaje" value="${mensaje}" />
+
+                <!-- Utilizar la etiqueta 'c:if' para mostrar el alert solo cuando 'mostrarAlert' sea verdadero -->
+                <c:if test="${mostrarAlert}">
+                    <div class="alert alert-info" style="text-align: center" role="alert">${mensaje}</div>
+                </c:if>
+                <div class="card-header bg-dark text-white">
+                    <h2 class="card-title d-flex justify-content-center">Registrar Usuario</h2>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="Ingrese su contraseña">
+                <div class="card-body">
+                    <form action="guardar-estudiantes" class="row" method="post">
+                        <div class="col-md-6 mb-2">
+                            <label for="username" class="form-label">Nombre de Usuario</label>
+                            <input type="text" class="form-control" name="userName" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="password" class="form-label">Contrase�a</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                                               
+                        <div class="col-md-6 mb-2">
+                            <label for="email" class="form-label">Correo Electr�nico</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                         <c:if test="${userRol == 'Admin'}">
+                            <label for="userRol" class="form-label">Rol de Usuario</label>
+                            <select class="form-select" name="userRol" required>
+                                <option value="Admin">Admin</option>
+                                <option value="Student">Estudiante</option>
+                            </select>
+                             </c:if>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-secondary w-100 mt-4">Registrar</button>
+                        </div>
+                    </form>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Confirmar Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="Confirme su contraseña">
-                </div>
-              </div>
-              <div class="field is-grouped is-centered">
-                <div class="control">
-                  <button class="button is-primary">Registrarse</button>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </main>
+
+    <!-- Script Validaciones del formulario -->
+    <script src="<c:url value="/res/js/formularioUsuario.js" />"></script>
+    <!-- JavaScript Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Footer -->
+        <%@ include file='footer.jsp'%>
 </body>
 </html>
