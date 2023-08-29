@@ -13,6 +13,12 @@ public class MainController {
         // Lógica para mostrar la página de inicio
         return "home"; // Nombre de la vista JSP o HTML
     }
+    
+    @RequestMapping("/goHome")
+    public String showHome(Model model) {
+        // Lógica para mostrar la página de inicio
+        return "home"; // Nombre de la vista JSP o HTML
+    }
     @RequestMapping("/goRegistration")
     public String showRegistration(Model model) {
         // Lógica para mostrar la página de inicio
