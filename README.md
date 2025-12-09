@@ -1,7 +1,7 @@
 # Proyecto-Final-SOECSA
 Portal estudiantil de nivelación de estudios para recopilación de datos personales 
 Plan Formativo Nivel de Dificultad:
-FULL STACK PYTHON TRAINEE Medio
+FULL STACK JAVA TRAINEE Medio
 Nombre del proyecto:
 “Elaborando mi portafolio”
 
