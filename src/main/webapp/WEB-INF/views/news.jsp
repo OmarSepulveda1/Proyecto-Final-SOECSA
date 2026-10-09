@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html class="h-100 translated-ltr">
+<html lang="es">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bienvenido a Soecsa</title>
     <!-- CSS del proyecto -->
 <%@ include file='css-proyect.jsp'%>
@@ -16,20 +18,47 @@
 	<c:set var="navText" value="Estudiantes" />
 	<!-- Texto Listar -->
 	<%@ include file='navbar.jsp'%>
-    <h1>Bienvenido a Soecsa</h1>
-    
-    <p>Acá destacamos las ultimas noticias.</p>
-    
-    <p>Por favor, seleccione una de las siguientes opciones:</p>
-    
-    <ul>
-        <li><a href="<c:url value='/post/noticias'/>">Ver Noticias</a></li>
-        <!-- Agrega más enlaces aquí según tu aplicación -->
-    </ul>
+    <main class="container my-4 content">
+        <h1>Noticias SOECSA</h1>
+        <c:if test="${not empty mensaje}">
+            <div class="alert alert-success" role="status"><c:out value="${mensaje}"/></div>
+        </c:if>
+        <sec:authorize access="hasRole('ADMIN')">
+            <a class="btn btn-primary mb-3" href="<c:url value='/post/nuevo'/>">Publicar noticia</a>
+        </sec:authorize>
+        <c:choose>
+            <c:when test="${empty posts}">
+                <p class="alert alert-info">No hay noticias publicadas por el momento.</p>
+            </c:when>
+            <c:otherwise>
+                <c:forEach items="${posts}" var="post">
+                    <article class="card mb-3">
+                        <c:if test="${not empty post.imageUrl}">
+                            <img class="card-img-top" src="<c:out value='${post.imageUrl}'/>"
+                                 alt="<c:out value='${post.title}'/>">
+                        </c:if>
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <a href="<c:url value='/post/noticia/${post.id}'/>"><c:out value="${post.title}"/></a>
+                            </h2>
+                            <c:if test="${not empty post.publicationDate}">
+                                <p class="text-muted"><c:out value="${post.publicationDate}"/></p>
+                            </c:if>
+                            <p class="card-text"><c:out value="${post.text}"/></p>
+                            <sec:authorize access="hasRole('ADMIN')">
+                                <a class="btn btn-outline-secondary btn-sm"
+                                   href="<c:url value='/post/${post.id}/editar'/>">Editar</a>
+                                <form class="d-inline" action="<c:url value='/post/${post.id}/eliminar'/>" method="post">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                    <button class="btn btn-outline-danger btn-sm" type="submit">Eliminar</button>
+                                </form>
+                            </sec:authorize>
+                        </div>
+                    </article>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    </main>
     <%@ include file='footer.jsp'%>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
 </body>
 </html>

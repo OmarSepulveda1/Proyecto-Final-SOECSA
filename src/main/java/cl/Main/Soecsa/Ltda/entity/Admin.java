@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "admin")
-@PrimaryKeyJoinColumn(columnDefinition = "id")
+@PrimaryKeyJoinColumn(name = "id")
 public class Admin extends User{
 	
 	@Column(name = "name")

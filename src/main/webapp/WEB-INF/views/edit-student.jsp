@@ -1,81 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="ISO-8859-1">
-<title>Editar Estudiante</title>
-<!-- CSS del proyecto -->
-<link rel="stylesheet" href="../css/estilos.css">
-<!-- CSS Bootstrap -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-	crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Editar estudiante</title>
+    <%@ include file="css-proyect.jsp"%>
 </head>
 <body>
-
-	<!-- Incluyendo navbar menu -->
-	<c:set var="navItem" value="ModificarEstudiante" />
-	<!-- Menu activo -->
-	<c:set var="navText" value="Estudiante" />
-	<!-- Texto Crear -->
-	<%@ include file='navbar.jsp'%>
-
-	<div
-		class="container d-flex justify-content-center align-items-center mt-4  content">
-		<!-- Formulario para modificar un Estudiante -->
-		<div class="card" style="width: 50%;">
-			<div class="card-header bg-dark text-white">
-			<c:set var="student" value="${student}" />
-				<h2 class="card-title d-flex justify-content-center">Modificar ${student.getRol()}</h2>
-			</div>
-			
-			<div class="card-body">
-				<form action="EditarEstudiante" class="row" method="post">
-					<div class="col-md-5 mb-3">
-						<label for="name" class="form-label">Nombre</label> 
-						<input value="${student.getName()}" type="text" class="form-control" name="name" required>
-					</div>
-					<div class="col-md-5 mb-3">
-						<<label for="lastName" class="form-label">Apellido</label> 
-						<input value="${student.getLastName()}" type="text" class="form-control" name="lastName" required>
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="email" class="form-label">Email</label> 
-						<input value="${student.getEmail()}" type="text" class="form-control" name="email" required>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="rut" class="form-label">RUT</label>
-						<input value="${student.getRut()}" type="text"class="form-control" name="rut" required>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="age" class="form-label">Edad</label>
-						<input value="${student.getAge()}" type="text" class="form-control" name="age" required>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="lastGradeStudied" class="form-label">Último Grado Estudiado</label> 
-						<input value="${student.getLastGradeStudied()}" type="text" class="form-control" name="lastGradeStudied" required>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="phoneNumber" class="form-label">Número de Teléfono</label> 
-						<input value="${student.getPhoneNumber()}" type="text" class="form-control" name="phoneNumber" required>
-					</div>
-
-					<div class="col-md-12">
-						<input type="hidden" name="idStudent" value="${student.getId()}">
-						<button type="submit" class="btn btn-secondary w-100 mt-4">Guardar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- JavaScript Bootstrap -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
+    <%@ include file="navbar.jsp"%>
+    <main class="container my-4 content">
+        <h1>Editar estudiante</h1>
+        <form:form modelAttribute="student" action="${pageContext.request.contextPath}/estudiantes/${student.id}"
+                   method="post" cssClass="row g-3">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Nombre</label>
+                <input id="name" name="name" type="text" class="form-control"
+                       value="<c:out value='${student.name}'/>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="lastName" class="form-label">Apellido</label>
+                <input id="lastName" name="lastName" type="text" class="form-control"
+                       value="<c:out value='${student.lastName}'/>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Correo electrÃ³nico</label>
+                <input id="email" name="email" type="email" class="form-control"
+                       value="<c:out value='${student.email}'/>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="rut" class="form-label">RUT</label>
+                <form:input path="rut" id="rut" type="text" inputmode="text" autocomplete="off"
+                            maxlength="12" placeholder="12.345.678-5" cssClass="form-control" required="required"/>
+                <form:errors path="rut" cssClass="text-danger small"/>
+            </div>
+            <div class="col-md-6">
+                <label for="age" class="form-label">Edad</label>
+                <input id="age" name="age" type="number" min="1" class="form-control"
+                       value="<c:out value='${student.age}'/>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="lastGradeStudied" class="form-label">Ãšltimo grado estudiado</label>
+                <input id="lastGradeStudied" name="lastGradeStudied" type="text" class="form-control"
+                       value="<c:out value='${student.lastGradeStudied}'/>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phoneNumber" class="form-label">TelÃ©fono</label>
+                <input id="phoneNumber" name="phoneNumber" type="tel" class="form-control"
+                       value="<c:out value='${student.phoneNumber}'/>" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <a class="btn btn-secondary" href="<c:url value='/estudiantes'/>">Cancelar</a>
+            </div>
+        </form:form>
+    </main>
+    <%@ include file="footer.jsp"%>
 </body>
 </html>

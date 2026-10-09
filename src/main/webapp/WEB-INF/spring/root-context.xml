@@ -9,12 +9,14 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <context:property-placeholder />
+
     <!-- Configuración de la Base de Datos -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/soecsa" />
-        <property name="username" value="adminp" />
-        <property name="password" value="12345" />
+        <property name="url" value="${SOECSA_DB_URL:jdbc:mysql://localhost:3306/soecsa}" />
+        <property name="username" value="${SOECSA_DB_USERNAME:}" />
+        <property name="password" value="${SOECSA_DB_PASSWORD:}" />
     </bean>
     <!-- Configuración de JPA -->
     <bean id="entityManagerFactory"
@@ -51,7 +53,10 @@
     </bean>
 
     <!-- Habilitar la búsqueda de componentes en el proyecto -->
-    <context:component-scan base-package="cl.Main.Soecsa.Ltda" />
+    <context:component-scan base-package="cl.Main.Soecsa.Ltda">
+        <context:exclude-filter type="annotation"
+            expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 
     <!-- Configuración del Administrador de Transacciones -->
     <tx:annotation-driven transaction-manager="transactionManager" />

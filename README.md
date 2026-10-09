@@ -1,37 +1,49 @@
-# Proyecto-Final-SOECSA
-Portal estudiantil de nivelación de estudios para recopilación de datos personales 
-Plan Formativo Nivel de Dificultad:
-FULL STACK JAVA TRAINEE Medio
-Nombre del proyecto:
-“Elaborando mi portafolio”
+# SOECSA Ltda.
 
-Tema:
-Portafolio final del módulo.
+Portal web de SOECSA Ltda. para personas que desean completar su enseñanza
+media. Presenta información institucional y noticias, recibe postulaciones y
+ofrece herramientas administrativas para gestionar estudiantes y publicaciones.
 
-Objetivo del proyecto:
-(Competencias del Módulo):
+## Funcionalidades
 
-Presentar un producto digital en un portafolio personal utilizando las
-herramientas tecnológicas y buenas prácticas disciplinares para resolver una
-problemática y potenciar el perfil profesional
+- Página de inicio, galería y noticias públicas.
+- Formulario público de postulación con validación del RUT chileno.
+- Administración autenticada de estudiantes y noticias: crear, consultar,
+  editar y eliminar.
+- Creación de cuentas administrativas desde la aplicación.
+- Bootstrap servido localmente, sin dependencia de una CDN en ejecución.
 
-Aprendizaje esperado a trabajar (AD)
-a evaluar (Ev)
+## Tecnologías
 
-3. Implementar un portafolio de un producto digital utilizando
-las herramientas disponibles y las buenas prácticas de la industria.
+- Java 25 para compilar y ejecutar (JDK probado: Temurin 25).
+- Spring MVC y Spring Security, JSP/JSTL, Spring Data JPA e Hibernate.
+- MySQL y Maven.
+- WAR desplegable en Apache Tomcat 9.
 
-Ejecución: individual
-Descripción de la Evaluación
-SPRINT DE ENTREGA:
-A través de los diferentes módulos de este curso hemos construido un sitio web y una marca personal,
-para ello vamos a diseñar un sitio web para escritorio que reflejará los valores de esta marca y
-contendrá al menos 3 secciones adicionales a la sección home.
-Los textos podrán ser simulados, las imágenes no. La distribución de los contenidos debe responder a
-un sitio web tipo landing page.
-A partir del sitio web personal desarrollado vamos a implementar el sitio web a través de una propuesta
-Mobile First en PDF y luego lo maquetearemos para poder visualizarlo desde distintos dispositivos.
+El proyecto conserva `source` y `target` de Java 8 en Maven para generar
+bytecode compatible; esto no impide ejecutar la aplicación con Java 25.
 
-Consideraciones generales
-El entregable es un documento según el formato en el que se haya realizado.
-Considera el periodo de tiempo que se asigna para la entrega de este portafolio.
+## Compilar
+
+Con JDK 25 y Maven instalados:
+
+```powershell
+mvn clean verify
+```
+
+El WAR se genera en `target/Soecsa.Ltda-0.0.1-SNAPSHOT.war`. Despliégalo en
+Tomcat 9, compatible con las APIs `javax.*` usadas por la aplicación.
+
+## Configuración y despliegue
+
+Configura `SOECSA_DB_URL`, `SOECSA_DB_USERNAME`, `SOECSA_DB_PASSWORD` y
+`SOECSA_ADMIN_PASSWORD` en el entorno del servidor. El usuario inicial es
+`admin`; usa una contraseña administrativa distinta de la contraseña de MySQL.
+
+Antes de guardar RUT completos en una base existente, ejecuta la migración
+[`database/migrations/V20261009_01__student_rut_to_varchar.sql`](database/migrations/V20261009_01__student_rut_to_varchar.sql).
+No importes `Soecsa.sql` sobre una base con datos que deban conservarse: es un
+dump heredado que contiene instrucciones `DROP TABLE`.
+
+Consulta [DOCUMENTATION.md](DOCUMENTATION.md) para los pasos detallados de
+configuración, rutas y base de datos.

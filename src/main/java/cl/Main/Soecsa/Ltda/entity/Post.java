@@ -7,12 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "post")
-@PrimaryKeyJoinColumn(columnDefinition = "id")
 public class Post {
 	
 	@Id
@@ -21,6 +21,7 @@ public class Post {
 	
 	@Column(name = "title")
     private String title;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "publication_date")
     private LocalDate publicationDate;
     @Column(name = "image_url")

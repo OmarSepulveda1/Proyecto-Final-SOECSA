@@ -1,21 +1,10 @@
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soecsa</title>
-    <!-- Iconos Bootstrap -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="goHome">Soecsa</a>
+        <a class="navbar-brand" href="<c:url value='/goHome'/>">SOECSA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,31 +12,37 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="goRegistration">Registrate</a>
+                    <a class="nav-link" href="<c:url value='/goRegistration'/>">Postulaci√≥n</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="goGallery">Galeria</a>
+                    <a class="nav-link" href="<c:url value='/goGallery'/>">Galer√≠a</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="goNews">Noticias</a>
+                    <a class="nav-link" href="<c:url value='/post/noticias'/>">Noticias</a>
                 </li>
+                <sec:authorize access="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value='/estudiantes'/>">Estudiantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value='/admin/crear-admin'/>">Administradores</a>
+                    </li>
+                </sec:authorize>
             </ul>
             <ul class="navbar-nav">
+                <sec:authorize access="!isAuthenticated()">
                 <li class="nav-item">
-                    <a class="nav-link" href="goLogin">Ingresa</a>
+                    <a class="nav-link" href="<c:url value='/goLogin'/>">Ingresar</a>
                 </li>
+                </sec:authorize>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <sec:authorize access="isAuthenticated()">
+                <form action="<c:url value='/logout'/>" method="post" class="d-flex">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <button class="btn btn-outline-secondary" type="submit">Cerrar sesi√≥n</button>
+                </form>
+            </sec:authorize>
         </div>
     </div>
 </nav>
-
-<!-- Agrega aquÌ el contenido de tu p·gina -->
-
-<!-- Agrega los scripts de Bootstrap y otros aquÌ -->
-
-</body>
-</html>
+<script src="<c:url value='/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js'/>"></script>

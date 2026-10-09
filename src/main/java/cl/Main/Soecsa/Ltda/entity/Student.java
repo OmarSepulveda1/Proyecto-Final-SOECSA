@@ -3,26 +3,20 @@ package cl.Main.Soecsa.Ltda.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
-@PrimaryKeyJoinColumn(columnDefinition = "id")
+@PrimaryKeyJoinColumn(name = "id")
 public class Student extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+
     @Column(name = "name")
     private String name;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "rut")
-    private int rut;
+    private String rut;
     @Column(name = "age")
     private int age;
     @Column(name = "last_grade_studied")
@@ -40,7 +34,7 @@ public class Student extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(Long id, String userName, String name, String lastName, int rut, int age, String lastGradeStudied, String phoneNumber) {
+	public Student(Long id, String userName, String name, String lastName, String rut, int age, String lastGradeStudied, String phoneNumber) {
 		super(id, userName, UserRol.Student);
 		this.name = name;
 		this.lastName = lastName;
@@ -49,27 +43,13 @@ public class Student extends User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Student(Long id, String userName, String password, String name, String lastName, int rut, int age, String lastGradeStudied, String phoneNumber) {
+	public Student(Long id, String userName, String password, String name, String lastName, String rut, int age, String lastGradeStudied, String phoneNumber) {
 		super(id, userName, UserRol.Student);
 		this.name = name;
 		this.lastName = lastName;
 		this.rut = rut;
 		this.lastGradeStudied = lastGradeStudied;
 		this.phoneNumber = phoneNumber;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**
@@ -104,14 +84,14 @@ public class Student extends User {
 	/**
 	 * @return the rut
 	 */
-	public int getRut() {
+	public String getRut() {
 		return rut;
 	}
 
 	/**
 	 * @param rut the rut to set
 	 */
-	public void setRut(int rut) {
+	public void setRut(String rut) {
 		this.rut = rut;
 	}
 

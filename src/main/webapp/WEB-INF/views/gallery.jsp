@@ -1,27 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html class="h-100 translated-ltr">
+<html lang="es">
 <head>
-<meta charset="ISO-8859-1">
-<title>Galeria</title>
-<!-- CSS del proyecto -->
-<%@ include file='css-proyect.jsp'%>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Galería | SOECSA</title>
+    <%@ include file="css-proyect.jsp"%>
 </head>
 <body>
-<!-- Incluyendo navbar menu -->
-	<c:set var="navItem" value="Galeria" />
-	<!-- Menu activo -->
-	<c:set var="navText" value="" />
-	<!-- Texto Listar -->
-	<%@ include file='navbar.jsp'%>
-
- <%@ include file='footer.jsp'%>
-	<%@ include file='footer.jsp'%>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
+    <%@ include file="navbar.jsp"%>
+    <main class="container my-4 content">
+        <h1 class="page-heading">Galería SOECSA</h1>
+        <figure class="card form-panel overflow-hidden">
+            <img src="<c:url value='/res/img/Big_2.jpg'/>" class="img-fluid"
+                 alt="Birretes de graduación lanzados al aire">
+            <figcaption class="card-body">
+                <h2 class="h5 card-title mb-0">Cada meta alcanzada abre nuevas oportunidades</h2>
+            </figcaption>
+        </figure>
+        <p class="text-muted">Próximamente compartiremos más imágenes de las actividades de SOECSA.</p>
+    </main>
+    <%@ include file="footer.jsp"%>
 </body>
 </html>

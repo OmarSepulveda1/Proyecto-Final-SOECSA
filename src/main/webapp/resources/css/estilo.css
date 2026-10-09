@@ -1,53 +1,184 @@
-@charset "ISO-8859-1";
+:root {
+  color-scheme: light;
+  --soecsa-primary: #173f5f;
+  --soecsa-accent: #ed7d3a;
+  --soecsa-text: #263238;
+  --soecsa-muted: #5f6b73;
+  --soecsa-surface: #f4f7f9;
+}
+
+html {
+  min-height: 100%;
+}
 
 body {
-  margin: 0;
-  padding: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  margin: 0;
+  color: var(--soecsa-text);
+  background-color: var(--soecsa-surface);
 }
-.alerta {
-    display: none;
-    position: absolute;
-    top: -40px;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-  }
-.contenedor {
-  flex: 1;
+
+main {
+  flex: 1 0 auto;
+}
+
+.navbar {
+  z-index: 1000;
+}
+
+.navbar-brand {
+  color: var(--soecsa-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+}
+
+.content {
+  padding-top: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--soecsa-primary);
+}
+
+.page-heading {
+  margin-bottom: 1.5rem;
+}
+
+.form-panel,
+.login-card {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.75rem 2rem rgb(23 63 95 / 10%);
+}
+
+.login-card {
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.login-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--soecsa-primary);
+}
+
+.hero-banner {
+  position: relative;
+  min-height: clamp(24rem, 45vw, 32rem);
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #152a38;
+  box-shadow: 0 1rem 2.5rem rgb(16 42 60 / 18%);
+}
+
+.hero-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-banner::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(12 34 51 / 88%), rgb(12 34 51 / 12%));
+  content: "";
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: inherit;
+  max-width: 48rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1.5rem, 6vw, 5rem);
+  color: #fff;
+}
+
+.hero-copy h1,
+.hero-copy p {
+  color: inherit;
+  text-shadow: 0 2px 8px rgb(0 0 0 / 45%);
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+}
+
+.hero-intro {
+  max-width: 52rem;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.hero-intro p {
+  color: var(--soecsa-muted);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--soecsa-primary);
+  --bs-btn-border-color: var(--soecsa-primary);
+  --bs-btn-hover-bg: #102f48;
+  --bs-btn-hover-border-color: #102f48;
+}
+
+.btn-accent {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--soecsa-accent);
+  --bs-btn-border-color: var(--soecsa-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #d86628;
+  --bs-btn-hover-border-color: #d86628;
 }
 
 .footer {
   flex-shrink: 0;
-  height: 60px;
-  background-color: rgb(232, 227, 227);
-  position: relative; /* Establecemos el posicionamiento relativo */
-  bottom: 0; /* Lo coloca inicialmente al final del contenedor */
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  color: #eaf1f5;
+  background-color: #173f5f;
+}
+
+.footer p {
+  margin: 0;
+  color: inherit;
+  line-height: 1.6;
+}
+
+.footer a {
+  color: #fff;
+}
+
+.alerta {
+  display: none;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 1;
   width: 100%;
-  margin-top: auto; /* Empuja el footer hacia abajo, pero no m�s all� del final del contenido */
 }
 
-.label{
-	padding-bottom: 8px;
-}
+@media (max-width: 575.98px) {
+  .content {
+    padding-top: 1rem;
+  }
 
-/* Estilos para el navbar */
-.navbar {
-  position: fixed; /* Fijamos la posición del navbar */
-  top: 0; /* Lo posicionamos en la parte superior */
-  left: 0; /* Lo posicionamos en la parte izquierda */
-  width: 100%; /* Opcional: Ancho completo del navbar */
-  z-index: 1000; /* Asegura que el navbar esté por encima de otros elementos */
-}
-
-/* Estilos para el contenido principal */
-.content {
-  padding-top: 50px; /* Añade espacio en la parte superior para evitar que el contenido quede detrás del navbar */
-}
-.fondo {
-  background-color: rgb(0, 128, 255); 
-  color: white; 
-  padding: 10px;
+  .hero-banner {
+    min-height: 26rem;
+  }
 }

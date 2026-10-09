@@ -1,8 +1,8 @@
 package cl.Main.Soecsa.Ltda.service;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.Main.Soecsa.Ltda.entity.Post;
@@ -11,31 +11,29 @@ import cl.Main.Soecsa.Ltda.repository.IPostRepository;
 @Service
 public class PostService {
 
-	public PostService() {
-		super();
+    private final IPostRepository postRepository;
 
-	}
+    public PostService(IPostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
-	@Autowired
-	private IPostRepository postRepo;
+    public List<Post> getPost() {
+        return postRepository.findAll();
+    }
 
-	public ArrayList<Post> getPost() {
-		return (ArrayList<Post>) postRepo.findAll();
-	}
+    public Optional<Post> findPost(Long id) {
+        return postRepository.findById(id);
+    }
 
-	public Post getPost(Long id) {
-		return postRepo.findById(id).get();
-	}
+    public Post getPost(Long id) {
+        return findPost(id).orElse(null);
+    }
 
-	public void createPost(Post post) {
-		postRepo.save(post);
-	}
+    public Post createPost(Post post) {
+        return postRepository.save(post);
+    }
 
-	public void update(Post post) {
-		postRepo.save(post);
-	}
-
-	public void borrarUsuario(Long id) {
-		postRepo.delete(postRepo.getOne(id));
-	}
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
 }

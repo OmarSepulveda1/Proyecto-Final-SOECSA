@@ -36,17 +36,15 @@ class HomeControllerTest {
     }
 
     @Test
-    void paginaInicioDeberiaDevolverTextoPersonalizado() throws Exception {
+    void rutaAlternativaDeInicioDeberiaDevolverLaPaginaDeInicio() throws Exception {
         mvc
                 // Simular una petición GET
-                .perform(get("/{nombre}", "Nombre"))
+                .perform(get("/goHome"))
                 // Imprimir resultado en consola
                 .andDo(print())
                 // Esperar que el estado de la respuesta sea HttpStatus.OK
                 .andExpect(status().isOk())
-                // Esperar que la vista devuelta sea "home2" como se especificó en el
-                // controlador
-                .andExpect(view().name("home2"));
+                .andExpect(view().name("home"));
     }
 
 }

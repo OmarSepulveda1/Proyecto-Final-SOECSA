@@ -1,0 +1,2 @@
+ALTER TABLE student
+    MODIFY COLUMN rut VARCHAR(12) NULL;

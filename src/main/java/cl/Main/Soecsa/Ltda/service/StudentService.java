@@ -28,12 +28,11 @@ public class StudentService {
     }
 
     public Student saveStudent(Student student) {
-    	student.setUserRol(UserRol.Student);
+        student.setUserRol(UserRol.Student);
         return studentsRepository.save(student);
     }
 
     public void deleteStudent(Long id) {
         studentsRepository.deleteById(id);
     }
-
 }

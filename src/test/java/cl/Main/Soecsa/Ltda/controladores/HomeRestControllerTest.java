@@ -1,54 +1,37 @@
 package cl.Main.Soecsa.Ltda.controladores;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-@SpringJUnitWebConfig(locations = { "file:src/main/webapp/WEB-INF/spring/appServlet-context.xml",
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
+import cl.Main.Soecsa.Ltda.controller.MainController;
+
 class HomeRestControllerTest {
 
     private MockMvc mvc;
 
     @BeforeEach
-    void setUp(WebApplicationContext wac) throws Exception {
-        mvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    void setUp() {
+        mvc = MockMvcBuilders.standaloneSetup(new MainController()).build();
     }
 
     @Test
-    void verMensaje() throws Exception {
-        mvc
-                // Simular petición get a la API
-                .perform(get("/api").contentType(MediaType.APPLICATION_JSON))
-                // Esperar a que el estado HTTP sea HttpStatus.OK
-                .andExpect(status().isOk())
-                // Esperar que el contenido devuelto sea un JSON
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                // Esperar a que el json contenga un atributo "method" con el valor "verMensaje"
-                .andExpect(jsonPath(".method").value("mostrarMensaje"));
+    void rutaDeNoticiasDevuelveSuVista() throws Exception {
+        mvc.perform(get("/goNews"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/post/noticias"));
     }
 
     @Test
-    void verMensajePersonalizado() throws Exception {
-        // Establecer nombre
-        String nombre = "Awaker";
-
-        mvc
-                // Simular petición get a la API
-                .perform(get("/api/{nombre}", nombre))
-                // Esperar a que el estado de respuesta sea HttpStatus.OK
+    void rutaDeGaleriaDevuelveSuVista() throws Exception {
+        mvc.perform(get("/goGallery"))
                 .andExpect(status().isOk())
-                // Esperar a que el contenido devuelto sea un JSON
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                // Esperar a que el json contenga un elemento "message" con el valor "Hola, Awaker!"
-                .andExpect(jsonPath(".message").value("Hola, " + nombre + "!"));
+                .andExpect(view().name("gallery"));
     }
-
 }
